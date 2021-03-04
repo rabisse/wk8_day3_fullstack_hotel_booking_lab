@@ -28,30 +28,11 @@ const createRouter = function (collection) {
         });
     });
 
-    // router.post('/', (req, res) => {
-    //     const newData = req.body;
-    //     if (newData.name != '' && newData.email != '' && newData.checkedIn != null) {
-    //     collection
-    //     .insertOne(newData)
-    //     .then((result) => {
-    //         res.json(result.ops[0])
-    //     })
-    //     .catch((err) => {
-    //         console.error(err);
-    //         res.status(500);
-    //         res.json({ status: 500, error: err });
-    //     })}
-    //     else {
-    //         res.status(400);
-    //         res.json({ status: 400, error: "Could not complete"})
-    //     }
-    // });
-    
-
-// delete below and uncomment above if schema stuff doesnt work
+//
 
     router.post('/', (req, res) => {
         const newData = req.body;
+        if (newData.name != '' && newData.email != '' && newData.checkedIn != null) {
         collection
         .insertOne(newData)
         .then((result) => {
@@ -61,12 +42,33 @@ const createRouter = function (collection) {
             console.error(err);
             res.status(500);
             res.json({ status: 500, error: err });
-        })
+        })}
+        else {
+            res.status(400);
+            res.json({ status: 400, error: "Could not complete"})
         }
-    );
+    });
+    
 
+// comment out above and comment in below to test the server side mongo schema validation
+
+    // router.post('/', (req, res) => {
+    //     const newData = req.body;
+    //     collection
+    //     .insertOne(newData)
+    //     .then((result) => {
+    //         res.json(result.ops[0])
+    //     })
+    //     .catch((err) => {
+    //         console.error(err);
+    //         res.status(500);
+    //         res.json({ status: 500, error: err });
+    //     })
+    //     }
+    // );
 
 //
+
 
     router.delete('/:id', (req, res) => {
         const id = req.params.id;
