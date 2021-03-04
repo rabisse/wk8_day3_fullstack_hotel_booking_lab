@@ -1,13 +1,13 @@
 <template>
     <form v-on:submit="addBooking" method="post">
         <label for="guestName">Guest Name: </label>
-        <input type="text" id="guestName" v-model="name" /><!-- require -->
+        <input type="text" id="guestName" v-model="name" require />
         <br><br>
         <label for="guestEmail">Guest Email: </label>
-        <input type="email" id="guestEmail" v-model="email" /><!-- require -->
+        <input type="email" id="guestEmail" v-model="email" require />
         <br><br>
         <label for="checkedInStatus">Check-in Status: </label>
-        <select name="status" id="checkedInStatus" v-model="checkedIn" ><!-- require -->
+        <select name="status" id="checkedInStatus" v-model="checkedIn" require >
             <option value="false">Not checked in</option>
             <option value="true">Checked in</option>
         </select>
@@ -40,6 +40,7 @@ export default {
             }
             BookingsService.postBooking(booking)
             .then(response => eventBus.$emit('booking-added', response))
+            // would add an if/else statement here that depends on the response from the server to make sure the add was successful
         }
     }
 }
